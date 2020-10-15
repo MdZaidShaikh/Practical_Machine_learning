@@ -2,9 +2,10 @@
 title: 'Peer-graded Assignment: Prediction Assignment Writeup'
 author: "Mohammad Zaid Shaikh"
 date: "11/10/2020"
-output: 
-  html_document: 
+output:
+  html_document:
     keep_md: yes
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -29,7 +30,7 @@ The data for this project come from this source: http://web.archive.org/web/2016
 
 ## Analysis
 
-### Load required libraries
+Load required libraries
 
 ```{r}
 library(caret)
@@ -38,7 +39,7 @@ library(rpart)
 library(rpart.plot)
 ```
 
-### Load Data
+Load Data
 
 ```{r}
 testing_fiename <- "pml-testing.csv"
@@ -54,11 +55,6 @@ if (!file.exists(testing_fiename, training_filename)) {
 testing  <- read.csv(testing_fiename, na.strings=c("NA","#DIV/0!",""))
 training <- read.csv(training_filename, na.strings=c("NA","#DIV/0!",""))
 ```
-```{r first look, warning=FALSE, message=FALSE, eval= FALSE}
-# First look at the data
-head(training)
-head(testing)
-```
 
 Cross-validation will be performed by spliting the training dataset into:
 
@@ -67,11 +63,10 @@ Cross-validation will be performed by spliting the training dataset into:
 2) A testing dataset, containing 30% of the observations. The accuracy of our prediction models will be evaluated using this dataset.
 
 ```{r cross-validation, warning=FALSE, message=FALSE, echo=TRUE}
-# load packages
-library(caret)
-library(randomForest)
-# Index for training dataset (70%) and testing dataset (30%) 
-# from the pml-training data set
+# First look at the data
+str(training)
+str(testing)
+
 set.seed(12345)
 inTrain = createDataPartition(y=training$classe,p=0.7, list=FALSE)
 # training dataset
